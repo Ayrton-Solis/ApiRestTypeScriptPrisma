@@ -8,14 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const service_user_1 = require("../service/service-user");
-class User {
-    static findAll(req, res) {
+exports.DataBaseUser = void 0;
+const prisma_client_1 = __importDefault(require("../prisma-client"));
+class DataBaseUser {
+    static create(email, name) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.find(req, res);
+                yield prisma_client_1.default.user.create({
+                    data: {
+                        email: email,
+                        name: name
+                    }
+                });
             }
             catch (error) {
                 console.log(error);
@@ -24,11 +32,10 @@ class User {
         });
     }
     ;
-    static createUser(req, res) {
+    static find() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.create(req, res);
-                // Aca iria algo con los tests... supongo?
+                return yield prisma_client_1.default.user.findMany();
             }
             catch (error) {
                 console.log(error);
@@ -37,45 +44,58 @@ class User {
         });
     }
     ;
-    static updateUser(req, res) {
+    static update(id, email, name) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.update(req, res);
+                yield prisma_client_1.default.user.update({
+                    where: {
+                        id: id,
+                    },
+                    data: {
+                        name: name,
+                        email: email,
+                    },
+                });
             }
             catch (error) {
                 console.log(error);
-                return res.status(500).json('Error Update');
             }
             ;
         });
     }
     ;
-    static deleteUser(req, res) {
+    static delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.delete(req, res);
+                yield prisma_client_1.default.user.delete({
+                    where: {
+                        id: id,
+                    }
+                });
             }
             catch (error) {
                 console.log(error);
-                return res.status(500).json('error delete');
             }
             ;
         });
     }
     ;
-    static findById(req, res) {
+    static findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.findById(req, res);
+                return yield prisma_client_1.default.user.findUnique({
+                    where: {
+                        id: id,
+                    }
+                });
             }
             catch (error) {
                 console.log(error);
-                return res.status(500).json('findById error');
             }
             ;
         });
     }
     ;
 }
-exports.User = User;
+exports.DataBaseUser = DataBaseUser;
 ;

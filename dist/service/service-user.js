@@ -9,55 +9,62 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const service_user_1 = require("../service/service-user");
-class User {
-    static findAll(req, res) {
+exports.ServiceUser = void 0;
+const repositoy_user_1 = require("../repository/repositoy-user");
+class ServiceUser {
+    static create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.find(req, res);
+                const { email, name } = req.body;
+                yield repositoy_user_1.DataBaseUser.create(email, name);
+                return res.status(200).json('user created successfully');
             }
             catch (error) {
                 console.log(error);
+                return res.status(500).json('internal service error' + error);
             }
             ;
         });
     }
     ;
-    static createUser(req, res) {
+    static find(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.create(req, res);
-                // Aca iria algo con los tests... supongo?
+                const users = yield repositoy_user_1.DataBaseUser.find();
+                return res.status(200).json(users);
             }
             catch (error) {
                 console.log(error);
+                return res.status(500).json('internal service error' + error);
             }
             ;
         });
     }
     ;
-    static updateUser(req, res) {
+    static update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.update(req, res);
+                const { email, name } = req.body;
+                const id = Number(req.params.id);
+                yield repositoy_user_1.DataBaseUser.update(id, email, name);
+                return res.status(200).json('user updated successfully');
             }
             catch (error) {
-                console.log(error);
-                return res.status(500).json('Error Update');
+                return res.status(500).json('internal server error' + error);
             }
             ;
         });
     }
     ;
-    static deleteUser(req, res) {
+    static delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.delete(req, res);
+                const id = Number(req.params.id);
+                repositoy_user_1.DataBaseUser.delete(id);
+                return res.status(200).json('user deleted successfully');
             }
             catch (error) {
-                console.log(error);
-                return res.status(500).json('error delete');
+                return res.status(500).json('internal server error' + error);
             }
             ;
         });
@@ -66,16 +73,17 @@ class User {
     static findById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                service_user_1.ServiceUser.findById(req, res);
+                const id = Number(req.params.id);
+                const user = yield repositoy_user_1.DataBaseUser.findById(id);
+                return res.status(200).json(user);
             }
             catch (error) {
-                console.log(error);
-                return res.status(500).json('findById error');
+                return res.status(500).json('internal server error' + error);
             }
             ;
         });
     }
     ;
 }
-exports.User = User;
+exports.ServiceUser = ServiceUser;
 ;
