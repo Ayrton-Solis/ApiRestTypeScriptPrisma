@@ -17,82 +17,52 @@ const prisma_client_1 = __importDefault(require("../prisma-client"));
 class DataBaseUser {
     static create(email, name) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield prisma_client_1.default.user.create({
-                    data: {
-                        email: email,
-                        name: name
-                    }
-                });
-            }
-            catch (error) {
-                console.log(error);
-            }
-            ;
+            yield prisma_client_1.default.user.create({
+                data: {
+                    email: email,
+                    name: name
+                }
+            });
         });
     }
     ;
     static find() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield prisma_client_1.default.user.findMany();
-            }
-            catch (error) {
-                console.log(error);
-            }
-            ;
+            return yield prisma_client_1.default.user.findMany();
         });
     }
     ;
     static update(id, email, name) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield prisma_client_1.default.user.update({
-                    where: {
-                        id: id,
-                    },
-                    data: {
-                        name: name,
-                        email: email,
-                    },
-                });
-            }
-            catch (error) {
-                console.log(error);
-            }
-            ;
+            yield prisma_client_1.default.user.update({
+                where: {
+                    id: id,
+                },
+                data: {
+                    name: name,
+                    email: email,
+                },
+            });
         });
     }
     ;
     static delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield prisma_client_1.default.user.delete({
-                    where: {
-                        id: id,
-                    }
-                });
-            }
-            catch (error) {
-                console.log(error);
-            }
-            ;
+            yield prisma_client_1.default.user.delete({
+                where: {
+                    id: id,
+                }
+            });
         });
     }
     ;
     static findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield prisma_client_1.default.user.findUnique({
-                    where: {
-                        id: id,
-                    }
-                });
-            }
-            catch (error) {
-                console.log(error);
-            }
-            ;
+            return yield prisma_client_1.default.user.findUnique({
+                where: {
+                    id: id,
+                }
+            });
         });
     }
     ;

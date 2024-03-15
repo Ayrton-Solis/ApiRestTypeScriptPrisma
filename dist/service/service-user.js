@@ -17,11 +17,9 @@ class ServiceUser {
             try {
                 const { email, name } = req.body;
                 yield repositoy_user_1.DataBaseUser.create(email, name);
-                return res.status(200).json('user created successfully');
             }
             catch (error) {
                 console.log(error);
-                return res.status(500).json('internal service error' + error);
             }
             ;
         });
@@ -31,11 +29,10 @@ class ServiceUser {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const users = yield repositoy_user_1.DataBaseUser.find();
-                return res.status(200).json(users);
+                return res.json(users);
             }
             catch (error) {
                 console.log(error);
-                return res.status(500).json('internal service error' + error);
             }
             ;
         });
@@ -47,10 +44,9 @@ class ServiceUser {
                 const { email, name } = req.body;
                 const id = Number(req.params.id);
                 yield repositoy_user_1.DataBaseUser.update(id, email, name);
-                return res.status(200).json('user updated successfully');
             }
             catch (error) {
-                return res.status(500).json('internal server error' + error);
+                console.log(error);
             }
             ;
         });
@@ -61,10 +57,9 @@ class ServiceUser {
             try {
                 const id = Number(req.params.id);
                 repositoy_user_1.DataBaseUser.delete(id);
-                return res.status(200).json('user deleted successfully');
             }
             catch (error) {
-                return res.status(500).json('internal server error' + error);
+                console.log(error);
             }
             ;
         });
@@ -75,10 +70,10 @@ class ServiceUser {
             try {
                 const id = Number(req.params.id);
                 const user = yield repositoy_user_1.DataBaseUser.findById(id);
-                return res.status(200).json(user);
+                return res.json(user);
             }
             catch (error) {
-                return res.status(500).json('internal server error' + error);
+                console.log(error);
             }
             ;
         });

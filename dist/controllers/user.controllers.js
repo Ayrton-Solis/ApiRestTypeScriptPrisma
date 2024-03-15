@@ -16,9 +16,11 @@ class User {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 service_user_1.ServiceUser.find(req, res);
+                return res.status(200);
             }
             catch (error) {
                 console.log(error);
+                return res.status(500).json('internal service error' + error);
             }
             ;
         });
@@ -28,10 +30,11 @@ class User {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 service_user_1.ServiceUser.create(req, res);
-                // Aca iria algo con los tests... supongo?
+                return res.status(200).json('user created successfully');
             }
             catch (error) {
                 console.log(error);
+                return res.status(500).json('internal service error' + error);
             }
             ;
         });
@@ -41,10 +44,11 @@ class User {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 service_user_1.ServiceUser.update(req, res);
+                return res.status(200).json('user updated successfully');
             }
             catch (error) {
                 console.log(error);
-                return res.status(500).json('Error Update');
+                return res.status(500).json('internal server error' + error);
             }
             ;
         });
@@ -54,10 +58,10 @@ class User {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 service_user_1.ServiceUser.delete(req, res);
+                return res.status(200).json('user deleted successfully');
             }
             catch (error) {
-                console.log(error);
-                return res.status(500).json('error delete');
+                return res.status(500).json('internal server error' + error);
             }
             ;
         });
@@ -67,10 +71,10 @@ class User {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 service_user_1.ServiceUser.findById(req, res);
+                return res.status(200);
             }
             catch (error) {
-                console.log(error);
-                return res.status(500).json('findById error');
+                return res.status(500).json('internal server error' + error);
             }
             ;
         });
