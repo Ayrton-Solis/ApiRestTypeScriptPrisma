@@ -1,11 +1,16 @@
-import prisma from "../prisma-client";
+import { PrismaClient } from "@prisma/client";
 
-export class DataBaseUser {
-  static async create(email: string, name: string) {
-      await prisma.user.create({
+const prisma = new PrismaClient();
+
+
+export class RepositoryUser {
+
+  static async create(email: string, name: string, password: string) {
+      return await prisma.user.create({
         data: {
           email: email,
-          name: name
+          name: name,
+          password: password
         }
       });
     };
@@ -30,10 +35,10 @@ export class DataBaseUser {
         }
       });
     };
-  static async findById(id: number) {
+  static async findUnique(email: string) {
       return await prisma.user.findUnique({
         where: {
-          id: id,
+          email: email,
         }
       });
     };

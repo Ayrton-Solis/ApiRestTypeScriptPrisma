@@ -7,5 +7,6 @@ router.get('/user', user_controllers_1.User.findAll);
 router.post('/user', user_controllers_1.User.createUser);
 router.put('/user/:id', user_controllers_1.User.updateUser);
 router.delete('/user/:id', user_controllers_1.User.deleteUser);
-router.get('/user/:id', user_controllers_1.User.findById);
+router.post('/login', user_controllers_1.User.login);
+router.post('/logout', user_controllers_1.User.logout);
 exports.default = router;

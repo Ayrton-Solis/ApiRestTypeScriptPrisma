@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ServiceUser } from "../service/service-user";
+import { ServiceUser } from "../service/user-service";
 
 
 export class User {
@@ -7,7 +7,7 @@ export class User {
     try {
 
       ServiceUser.find(req, res);
-      
+
       return res.status(200)
 
     } catch (error) {
@@ -18,10 +18,10 @@ export class User {
 
   static async createUser(req: Request, res: Response): Promise<Response> {
     try {
-      
-      ServiceUser.create(req, res);
 
-      return res.status(200).json('user created successfully');
+      const token = await ServiceUser.create(req, res);
+
+      return res.cookie('token', token).json('user created successfully')
 
     } catch (error) {
       console.log(error);
@@ -33,7 +33,7 @@ export class User {
     try {
 
       ServiceUser.update(req, res);
-      
+
       return res.status(200).json('user updated successfully');
 
     } catch (error) {
@@ -54,15 +54,23 @@ export class User {
     };
   };
 
-  static async findById(req: Request, res: Response) {
+  static login(req: Request, res: Response) {
     try {
 
-      ServiceUser.findById(req, res);
+      ServiceUser.login(req, res);
 
-      return res.status(200)
+      res.status(200);
 
     } catch (error) {
       return res.status(500).json('internal server error' + error);
     };
+  };
+
+  static logout(req: Request, res: Response) {
+    
+    ServiceUser.logout(req, res);
+
+    return res.status(200);
+
   };
 };
