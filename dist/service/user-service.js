@@ -94,7 +94,7 @@ class ServiceUser {
                 ;
                 // Este parametro solo puede resivir string, objeto o buffer, por eso es un objeto en vez de un number directo
                 const token = yield (0, create_token_1.createAccesToken)({ id: user === null || user === void 0 ? void 0 : user.id });
-                res.cookie('token', token).json({ meesage: `Felicidades ${user === null || user === void 0 ? void 0 : user.name}, Logeo exitoso, tu token de validacion es ${token}` });
+                res.cookie('token', token).json({ meesage: `Felicidades ${user === null || user === void 0 ? void 0 : user.name}, Logeo exitoso` });
             }
             catch (error) {
                 console.log(error);
@@ -112,6 +112,12 @@ class ServiceUser {
         }
     }
     ;
+    static profile(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log('por aca tambien anda todo bien');
+            res.send('hola, funciona todo bien hasta aca');
+        });
+    }
 }
 exports.ServiceUser = ServiceUser;
 ;

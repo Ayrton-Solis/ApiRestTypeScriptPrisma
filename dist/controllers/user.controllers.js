@@ -83,6 +83,10 @@ class User {
         return res.status(200);
     }
     ;
+    static profile(req, res) {
+        user_service_1.ServiceUser.profile(req, res);
+    }
+    ;
 }
 exports.User = User;
 ;

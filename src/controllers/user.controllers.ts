@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ServiceUser } from "../service/user-service";
+import { log } from "console";
 
 
 export class User {
@@ -72,5 +73,9 @@ export class User {
 
     return res.status(200);
 
+  };
+
+  static profile(req: Request, res: Response){
+    ServiceUser.profile(req, res);
   };
 };

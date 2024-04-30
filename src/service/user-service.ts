@@ -40,6 +40,7 @@ export class ServiceUser {
       const { email, name } = req.body
       const id: number = Number(req.params.id);
       await RepositoryUser.update(id, email, name);
+      
 
     } catch (error) {
       console.log(error);
@@ -69,7 +70,7 @@ export class ServiceUser {
       // Este parametro solo puede resivir string, objeto o buffer, por eso es un objeto en vez de un number directo
       const token = await createAccesToken({ id: user?.id });
 
-      res.cookie('token', token).json({ meesage: `Felicidades ${user?.name}, Logeo exitoso, tu token de validacion es ${token}` });
+      res.cookie('token', token).json({ meesage: `Felicidades ${user?.name}, Logeo exitoso` });
 
     } catch (error) {
       console.log(error);
@@ -82,4 +83,8 @@ export class ServiceUser {
       console.log(error);
     }
   };
+  static async profile(req: Request, res: Response){
+    console.log('por aca tambien anda todo bien');
+    res.send('hola, funciona todo bien hasta aca');
+  }
 };
